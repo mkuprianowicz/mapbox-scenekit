@@ -2,7 +2,7 @@ import Foundation
 import CoreLocation
 import CoreGraphics
 
-internal class Math {
+public class Math {
     static func degreesToRadians(_ degrees: Double) -> Double {
         return Double.pi * degrees / 180.0
     }

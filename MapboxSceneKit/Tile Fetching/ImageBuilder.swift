@@ -1,7 +1,7 @@
 import Foundation
 import UIKit
 
-internal final class ImageBuilder {
+public final class ImageBuilder {
     private let context: CGContext?
     private let clippedRect: CGRect
     private let tileSize: CGSize
