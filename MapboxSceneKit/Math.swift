@@ -53,9 +53,9 @@ public class Math {
         return ((bottomRight.lat, topLeft.lat), (topLeft.lon, bottomRight.lon))
     }
     
-    public static func zoomLevelForBounds(southWestCorner: CLLocation, northEastCorner: CLLocation, tileSizeWidth: Double = 256) -> Int {
+    public static func zoomLevelForBounds(southWestCorner: CLLocation, northEastCorner: CLLocation, tileSizeWidth: Double = 256, maxTextureImageSize: Int = 2048 ) -> Int {
         let distance = northEastCorner.distance(from: southWestCorner) / 1000.0 //use kilometers
-        let imageSize = Double(Constants.maxTextureImageSize)
+        let imageSize = Double(maxTextureImageSize)
         let latitudeAdjustment = cos(.pi * northEastCorner.coordinate.latitude / 180)
         let arg = Constants.earthDiameterInKilometers
                     * imageSize
@@ -66,3 +66,4 @@ public class Math {
         return zoom
     }
 }
+
