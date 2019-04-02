@@ -1,84 +1,84 @@
 import Foundation
 import SceneKit
 
-internal func SCNVector3Length(vector: SCNVector3) -> Float {
+public func SCNVector3Length(vector: SCNVector3) -> Float {
     return sqrtf(vector.x * vector.x + vector.y * vector.y + vector.z * vector.z)
 }
 
-internal func SCNVector3Normalize(vector: SCNVector3) -> SCNVector3 {
+public func SCNVector3Normalize(vector: SCNVector3) -> SCNVector3 {
     return vector / SCNVector3Length(vector: vector)
 }
 
-internal func + (left: SCNVector3, right: SCNVector3) -> SCNVector3 {
+public func + (left: SCNVector3, right: SCNVector3) -> SCNVector3 {
     return SCNVector3Make(left.x + right.x, left.y + right.y, left.z + right.z)
 }
 
-internal func += ( left: inout SCNVector3, right: SCNVector3) {
+public func += ( left: inout SCNVector3, right: SCNVector3) {
     left = left + right
 }
 
-internal func - (left: SCNVector3, right: SCNVector3) -> SCNVector3 {
+public func - (left: SCNVector3, right: SCNVector3) -> SCNVector3 {
     return SCNVector3Make(left.x - right.x, left.y - right.y, left.z - right.z)
 }
 
-internal func -= ( left: inout SCNVector3, right: SCNVector3) {
+public func -= ( left: inout SCNVector3, right: SCNVector3) {
     left = left - right
 }
 
-internal func * (left: SCNVector3, right: SCNVector3) -> SCNVector3 {
+public func * (left: SCNVector3, right: SCNVector3) -> SCNVector3 {
     return SCNVector3Make(left.x * right.x, left.y * right.y, left.z * right.z)
 }
 
-internal func *= ( left: inout SCNVector3, right: SCNVector3) {
+public func *= ( left: inout SCNVector3, right: SCNVector3) {
     left = left * right
 }
 
-internal func * (vector: SCNVector3, scalar: Float) -> SCNVector3 {
+public func * (vector: SCNVector3, scalar: Float) -> SCNVector3 {
     return SCNVector3Make(vector.x * scalar, vector.y * scalar, vector.z * scalar)
 }
 
-internal func *= ( vector: inout SCNVector3, scalar: Float) {
+public func *= ( vector: inout SCNVector3, scalar: Float) {
     vector = vector * scalar
 }
 
-internal func / (left: SCNVector3, right: SCNVector3) -> SCNVector3 {
+public func / (left: SCNVector3, right: SCNVector3) -> SCNVector3 {
     return SCNVector3Make(left.x / right.x, left.y / right.y, left.z / right.z)
 }
 
-internal func /= ( left: inout SCNVector3, right: SCNVector3) {
+public func /= ( left: inout SCNVector3, right: SCNVector3) {
     left = left / right
 }
 
-internal func / (vector: SCNVector3, scalar: Float) -> SCNVector3 {
+public func / (vector: SCNVector3, scalar: Float) -> SCNVector3 {
     return SCNVector3Make(vector.x / scalar, vector.y / scalar, vector.z / scalar)
 }
 
-internal func /= ( vector: inout SCNVector3, scalar: Float) {
+public func /= ( vector: inout SCNVector3, scalar: Float) {
     vector = vector / scalar
 }
 
-internal func SCNVector3CrossProduct(left: SCNVector3, right: SCNVector3) -> SCNVector3 {
+public func SCNVector3CrossProduct(left: SCNVector3, right: SCNVector3) -> SCNVector3 {
     return SCNVector3Make(left.y * right.z - left.z * right.y, left.z * right.x - left.x * right.z, left.x * right.y - left.y * right.x)
 }
 
 // MARK: VectorFloat
 // Used for SCNVector3s to determine the type of float they use
 #if os(iOS)
-internal typealias VectorFloat = Float
+public typealias VectorFloat = Float
 #elseif os(OSX)
-internal typealias VectorFloat = CGFloat
+public typealias VectorFloat = CGFloat
 #endif
 
 // Shorthand for VectorFloat
-internal typealias VFloat = VectorFloat
+public typealias VFloat = VectorFloat
 
 // MARK: Protocol spaghetti
 // Let Float and CGFloat be convertable between eachother and do math with them
-internal protocol FloatConvertible {
+public protocol FloatConvertible {
     init(_ value: CGFloat)
     init(_ value: Float)
 }
-internal protocol FloatConvertibleMathable: FloatConvertible {
+public protocol FloatConvertibleMathable: FloatConvertible {
     static func +(lhs: Self, rhs: Self) -> Self
     static func -(lhs: Self, rhs: Self) -> Self
     static func *(lhs: Self, rhs: Self) -> Self
@@ -93,7 +93,7 @@ extension CGFloat: FloatConvertibleMathable { init(_ value: CGFloat) { self.init
 
 // MARK: VFloat extension
 // Let VFloats be created with a FloatConvertible
-internal extension VFloat {
+public extension VFloat {
     init(_ value: FloatConvertible) {
         if let v = value as? Float {
             self.init(v)
@@ -109,7 +109,7 @@ internal extension VFloat {
 }
 
 // MARK: Operators
-internal func *<T: FloatConvertibleMathable>(lhs: SCNVector3, rhs: T) -> SCNVector3 {
+public func *<T: FloatConvertibleMathable>(lhs: SCNVector3, rhs: T) -> SCNVector3 {
     return SCNVector3(
         VFloat(T(lhs.x) * rhs),
         VFloat(T(lhs.y) * rhs),
@@ -117,11 +117,11 @@ internal func *<T: FloatConvertibleMathable>(lhs: SCNVector3, rhs: T) -> SCNVect
     )
 }
 
-internal func /(lhs: SCNVector3, rhs: CGFloat) -> SCNVector3 {
+public func /(lhs: SCNVector3, rhs: CGFloat) -> SCNVector3 {
     return SCNVector3(VFloat(CGFloat(lhs.x) / rhs), VFloat(CGFloat(lhs.y) / rhs), VFloat(CGFloat(lhs.z) / rhs))
 }
 
-internal func /<T: FloatConvertibleMathable>(lhs: SCNVector3, rhs: T) -> SCNVector3 {
+public func /<T: FloatConvertibleMathable>(lhs: SCNVector3, rhs: T) -> SCNVector3 {
     return SCNVector3(
         VFloat(T(lhs.x) / rhs),
         VFloat(T(lhs.y) / rhs),
@@ -129,11 +129,11 @@ internal func /<T: FloatConvertibleMathable>(lhs: SCNVector3, rhs: T) -> SCNVect
     )
 }
 
-internal prefix func -(vector: SCNVector3) -> SCNVector3 {
+public prefix func -(vector: SCNVector3) -> SCNVector3 {
     return SCNVector3(-vector.x, -vector.y, -vector.z)
 }
 
-internal func * (quat: SCNQuaternion, vec: SCNVector3) -> SCNVector3 {
+public func * (quat: SCNQuaternion, vec: SCNVector3) -> SCNVector3 {
     let num = quat.x * 2
     let num2 = quat.y * 2
     let num3 = quat.z * 2
@@ -152,11 +152,11 @@ internal func * (quat: SCNQuaternion, vec: SCNVector3) -> SCNVector3 {
     return SCNVector3(x, y, z)
 }
 
-internal func +(lhs: SCNVector4, rhs: SCNVector4) -> SCNVector4 {
+public func +(lhs: SCNVector4, rhs: SCNVector4) -> SCNVector4 {
     return SCNVector4(lhs.x + rhs.x, lhs.y + rhs.y, lhs.z + rhs.z, lhs.w + rhs.w)
 }
 
-internal extension SCNVector3 {
+public extension SCNVector3 {
     func length() -> Float {
         return sqrtf(x * x + y * y + z * z)
     }
