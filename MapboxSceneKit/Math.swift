@@ -53,14 +53,14 @@ public class Math {
         return ((bottomRight.lat, topLeft.lat), (topLeft.lon, bottomRight.lon))
     }
     
-    public static func zoomLevelForBounds(southWestCorner: CLLocation, northEastCorner: CLLocation) -> Int {
+    public static func zoomLevelForBounds(southWestCorner: CLLocation, northEastCorner: CLLocation, tileSizeWidth: Double = 256) -> Int {
         let distance = northEastCorner.distance(from: southWestCorner) / 1000.0 //use kilometers
         let imageSize = Double(Constants.maxTextureImageSize)
         let latitudeAdjustment = cos(.pi * northEastCorner.coordinate.latitude / 180)
         let arg = Constants.earthDiameterInKilometers
                     * imageSize
                     * latitudeAdjustment
-                    / (distance * MapboxImageAPI.tileSizeWidth)
+                    / (distance * tileSizeWidth)
         let zoom = Int(round(log(arg)/log(2)))
         
         return zoom

@@ -42,7 +42,6 @@ extension TerrainNode {
     /// - Returns: The final PolylineNode, already added as a child of the TerrainNode
     @discardableResult
     @objc
-    @available(iOS 10.0, *)
     public func addPolyline(coordinates: [CLLocation], startRadius: CGFloat, endRadius: CGFloat,
                             startColor: UIColor, endColor: UIColor) -> PolylineNode {
         
@@ -57,7 +56,6 @@ extension TerrainNode {
 
     @discardableResult
     @objc
-    @available(iOS 10.0, *)
     public func addPolyline(coordinates: [CLLocation],
                             radii: [CGFloat],
                             colors: [UIColor],

@@ -9,8 +9,6 @@
 import Foundation
 import SceneKit
 
-
-@available(iOS 10.0, *)
 extension SCNProgram {
     /// By default, SCNPrograms use the main bundle's default library to find shader functions.
     /// This extension finds the bundle containing the input class, and uses that bundle's default MTLLibrary.

@@ -9,14 +9,9 @@ import CoreLocation
 @objc(MBTerrainNode)
 open class TerrainNode: SCNNode {
 
-    /// Callback typealias for when the new geometry has been loaded based on RGB heightmaps.
-    public typealias TerrainLoadCompletion = (NSError?) -> Void
-    
     /// Basic TerrainNode Information
     private let southWestCorner: CLLocation
     private let northEastCorner: CLLocation
-    private let styleZoomLevel: Int
-    private var terrainZoomLevel: Int
     
     /// Unit conversions
     fileprivate let metersPerLat: Double
@@ -42,11 +37,6 @@ open class TerrainNode: SCNNode {
     
     /// Convenience tuple represending the bounds of altitude after heightmaps have been loaded.
     private(set) var altitudeBounds: (CLLocationDistance, CLLocationDistance) = (0.0, 1.0)
-    
-    /// APIs and Tile fetching
-    private let api = MapboxImageAPI()
-    fileprivate var pendingFetches = [UUID]()
-    private static let queue = DispatchQueue(label: "com.mapbox.scenekit.processing", attributes: [.concurrent])
 
     required public init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
@@ -61,10 +51,7 @@ open class TerrainNode: SCNNode {
         
         self.southWestCorner = southWestCorner
         self.northEastCorner = northEastCorner
-        self.styleZoomLevel = Math.zoomLevelForBounds(southWestCorner: southWestCorner,
-                                                               northEastCorner: northEastCorner)
-        self.terrainZoomLevel = min(styleZoomLevel, Constants.maxTerrainRGBZoomLevel)
-        
+    
         self.metersPerLat = 1 / Math.metersToDegreesForLat(atLongitude: northEastCorner.coordinate.longitude)
         self.metersPerLon = 1 / Math.metersToDegreesForLon(atLatitude: northEastCorner.coordinate.latitude)
 
@@ -78,12 +65,6 @@ open class TerrainNode: SCNNode {
     @objc public convenience init(minLat: CLLocationDegrees, maxLat: CLLocationDegrees, minLon: CLLocationDegrees, maxLon: CLLocationDegrees) {
         self.init(southWestCorner: CLLocation(latitude: minLat, longitude: minLon),
                   northEastCorner: CLLocation(latitude: maxLat, longitude: maxLon))
-    }
-
-    deinit {
-        for task in pendingFetches {
-            api.cancelRequestWithID(task)
-        }
     }
 
     private func centerPivot() {
@@ -121,159 +102,10 @@ open class TerrainNode: SCNNode {
             return 0.0
         }
     }
-    
-    /// Begins the fetch of terrain-rgb data throught the mapbox API, and then updates the geometry to repersent a to-scale model of the terrain at this location.
-    /// Fetches an image representing a style (either mapbox or user created) to cover this terrain node.
-    ///
-    /// - Parameters:
-    ///   - minWallHeight: Padding amount (in meters) of the walls beyond the returned altitude minumum for the region.
-    ///   - multiplier: Scale factor used to artificially exaggerate or flatten the terrain heights. Useful if you are trying to make an area with relatively flat terrain look for dramatic. Default 1.
-    ///   - shadows: Depending on your applied texture / style, you may want to enable dynamic shadowing based on the contour of the terrain for interaction with Scene Kit lighting.
-    ///   - style: Mapbox style ID for given texture.
-    ///   - heightProgress: Handler for height progress change.
-    ///   - heightCompletion: Handler for complete height update.
-    ///   - textureProgress: Handler for texture progress change.
-    ///   - textureCompletion: Handler for complete texture update. It is up to the caller to apply it as a material component, but this gives the caller the opportunity to modify the image or apply it as something other then default diffuse contents. For the simplist usage, you'll want to apply it as the diffuse contents in position 4 (the top): `myTerrainNode.geometry?.materials[4].diffuse.contents = image`.
-    @objc public func fetchTerrainAndTexture(minWallHeight: CLLocationDistance = 0.0, multiplier: Float = 1, enableDynamicShadows shadows: Bool = false, textureStyle style: String,
-                                             heightProgress: MapboxImageAPI.TileLoadProgressCallback? = nil, heightCompletion: @escaping TerrainLoadCompletion,
-                                             textureProgress: MapboxImageAPI.TileLoadProgressCallback? = nil, textureCompletion: @escaping MapboxImageAPI.TileLoadCompletion) {
-        let retryNumber = Constants.maxRequestAttempts
-        fetchTerrainAndTexture(minWallHeight: minWallHeight,
-                               multiplier: multiplier,
-                               enableDynamicShadows: shadows,
-                               textureStyle: style,
-                               retryNumber: retryNumber,
-                               heightProgress: heightProgress,
-                               heightCompletion: heightCompletion,
-                               textureProgress: textureProgress,
-                               textureCompletion: textureCompletion)
-    }
-    
-    private func fetchTerrainAndTexture(minWallHeight: CLLocationDistance = 0.0, multiplier: Float, enableDynamicShadows shadows: Bool = false, textureStyle style: String,
-                                        retryNumber: Int, heightProgress: MapboxImageAPI.TileLoadProgressCallback? = nil,
-                                        heightCompletion: @escaping TerrainLoadCompletion, textureProgress: MapboxImageAPI.TileLoadProgressCallback? = nil,
-                                        textureCompletion: @escaping MapboxImageAPI.TileLoadCompletion) {
-        
-        fetchTerrainHeights(minWallHeight: minWallHeight,
-                            multiplier: multiplier,
-                            enableDynamicShadows: shadows,
-                            zoomLevel: terrainZoomLevel,
-                            retryNumber: retryNumber,
-                            progress: heightProgress) {
-            [weak self] heightFetchError in
-            guard let `self` = self else { return }
-            guard let heightFetchError = heightFetchError else {
-                // if there is no fetch error, height data is available
-                heightCompletion(nil)
-                return
-            }
-            
-            // if there was an issue fetching heights, let's try for a different zoom level
-            if retryNumber > 0 {
-                self.terrainZoomLevel -= 1
-                let decrementRetryNumber = retryNumber - 1
-                self.fetchTerrainAndTexture(minWallHeight: minWallHeight,
-                                            multiplier: multiplier,
-                                            enableDynamicShadows: shadows,
-                                            textureStyle: style,
-                                            retryNumber: decrementRetryNumber,
-                                            heightProgress: heightProgress,
-                                            heightCompletion: heightCompletion,
-                                            textureProgress: textureProgress,
-                                            textureCompletion: textureCompletion)
-            } else { // fail download when there's no height data for any zoom level
-                heightCompletion(heightFetchError)
-                textureProgress?(1, 1)
-                textureCompletion(nil, heightFetchError)
-            }
-        }
-        
-        //fetch texture in parallel to heights
-        self.fetchTerrainTexture(style, zoom: self.styleZoomLevel,
-                                 progress: textureProgress,
-                                 completion: textureCompletion)
-    }
-    
-    /// DEPRECATED - Please use instead fetchTerrainAndTexture.
-    /// Begins the fetch of terrain-rgb data throught the mapbox API, and then updates the geometry to repersent a to-scale model of the terrain at this location.
-    ///
-    /// - Parameters:
-    ///   - minWallHeight: Padding amount (in meters) of the walls beyond the returned altitude minumum for the region.
-    ///   - multiplier: Scale factor used to artificially exaggerate or flatten the terrain heights. Useful if you are trying to make an area with relatively flat terrain look for dramatic. Default 1.
-    ///   - shadows: Depending on your applied texture / style, you may want to enable dynamic shadowing based on the contour of the terrain for interaction with Scene Kit lighting.
-    ///   - progress: Handler for height progress change.
-    ///   - completion: Handler for complete height update.
-    @available(*, deprecated, message: "DEPRECATED - Please use instead fetchTerrainAndTexture.")
-    @objc public func fetchTerrainHeights(minWallHeight: CLLocationDistance = 0.0, multiplier: Float = 1, enableDynamicShadows shadows: Bool = false,
-                                          progress: MapboxImageAPI.TileLoadProgressCallback? = nil, completion: @escaping TerrainLoadCompletion) {
-    
-        fetchTerrainHeights(minWallHeight: minWallHeight,
-                            multiplier: multiplier,
-                            enableDynamicShadows: shadows,
-                            zoomLevel: self.terrainZoomLevel,
-                            progress: progress,
-                            completion: completion)
-    }
-    
-    private func fetchTerrainHeights(minWallHeight: CLLocationDistance = 0.0, multiplier: Float, enableDynamicShadows shadows: Bool = false, zoomLevel: Int,
-                                     retryNumber: Int = 3, progress: MapboxImageAPI.TileLoadProgressCallback? = nil, completion: @escaping TerrainLoadCompletion) {
-        
-        let southWestCorner = self.southWestCorner
-        let northEastCorner = self.northEastCorner
-        DispatchQueue.global(qos: .userInitiated).async { [weak self] in
-            if let taskID = self?.api.image(forTileset: "mapbox.terrain-rgb",
-                                            zoomLevel: zoomLevel,
-                                            southWestCorner: southWestCorner,
-                                            northEastCorner: northEastCorner,
-                                            format: MapboxImageAPI.TileImageFormatPNG,
-                                            progress: progress,
-                                            completion: { image, fetchError in
-                TerrainNode.queue.async {
-                    if let image = image {
-                        self?.applyTerrainHeightmap(image, withWallHeight: minWallHeight, multiplier: multiplier, enableShadows: shadows)
-                    }
-                    DispatchQueue.main.async() {
-                        completion(fetchError)
-                    }
-                }
-            }) {
-                self?.pendingFetches.append(taskID)
-            }
-        }
-    }
-
-    /// DEPRECATED - Please use instead fetchTerrainAndTexture.
-    /// Fetches an image representing a style (either mapbox or user created) to cover this terrain node.
-    /// It is up to the caller to apply it as a material component, but this gives the caller the opportunity to modify the image or apply it as something other then default diffuse contents.
-    /// For the simplist usage, you'll want to apply it as the diffuse contents in position 4 (the top): `myRerrainNode.geometry?.materials[4].diffuse.contents = image`.
-    ///
-    /// - Parameters:
-    ///   - style: Mapbox style ID for given texture.
-    ///   - progress: Handler for fetch progress change.
-    ///   - completion: Handler for complete texture update.
-    @available(*, deprecated, message: "DEPRECATED - Please use instead fetchTerrainAndTexture.")
-    @objc public func fetchTerrainTexture(_ style: String, progress: MapboxImageAPI.TileLoadProgressCallback? = nil, completion: @escaping MapboxImageAPI.TileLoadCompletion) {
-        fetchTerrainTexture(style, zoom: terrainZoomLevel, progress: progress, completion: completion)
-    }
-    
-    private func fetchTerrainTexture(_ style: String, zoom: Int, progress: MapboxImageAPI.TileLoadProgressCallback? = nil, completion: @escaping MapboxImageAPI.TileLoadCompletion) {
-        let southWestCorner = self.southWestCorner
-        let northEastCorner = self.northEastCorner
-        DispatchQueue.global(qos: .userInitiated).async { [weak self] in
-            if let taskID = self?.api.image(forStyle: style,
-                                            zoomLevel: zoom,
-                                            southWestCorner: southWestCorner,
-                                            northEastCorner: northEastCorner,
-                                            progress: progress,
-                                            completion: completion) {
-                self?.pendingFetches.append(taskID)
-            }
-        }
-    }
 
     //MARK: - Geometry Creation
 
-    private func applyTerrainHeightmap(_ image: UIImage,
+    public func applyTerrainHeightmap(_ image: UIImage,
                                        withWallHeight wallHeight: CLLocationDistance? = nil,
                                        multiplier: Float, enableShadows shadows: Bool) {
         guard let pixelData = image.cgImage?.dataProvider?.data, let terrainData = CFDataGetBytePtr(pixelData) else {

@@ -13,7 +13,7 @@ import SceneKit
 @objc(MBPolylineNode)
 public class PolylineNode: SCNNode {
 
-    private var lineRenderer: PolylineRenderer
+    private var lineRenderer: PolylineRenderer?
     private let positionCurve: BezierSpline3D
     private let colorCurve: BezierSpline3D
     private let radiusCurve: BezierSpline3D
@@ -30,7 +30,7 @@ public class PolylineNode: SCNNode {
         self.radiusCurve = radiusCurve
         self.colorCurve = colorCurve
         super.init()
-        lineRenderer.render(self, withSampleCount: sampleCount)
+        lineRenderer?.render(self, withSampleCount: sampleCount)
     }
 
     /// PolylineNode is a line drawn through the given positions. Can be sampled later at any point on the line.
@@ -58,7 +58,6 @@ public class PolylineNode: SCNNode {
     ///   - endRadius: The width of the final point of the line. Linearly interpolated from start to end positions.
     ///   - startColor: The color of the initial point of the line. Linearly interpolated from start to end.
     ///   - endColor: The color of the final point of the line. Linearly interpolated from start to end.
-    @available(iOS 10.0, *)
     @objc
     public convenience init(positions: [SCNVector3], startRadius: CGFloat, endRadius: CGFloat,
                             startColor: UIColor, endColor: UIColor){
@@ -77,7 +76,6 @@ public class PolylineNode: SCNNode {
     ///   - positions: The list of SCNVector3 positions. Drawn through each position from 0...n
     ///   - radii: The list of radii, distributed evenly along the line
     ///   - colors: The list of colors, distributed evenly along the line
-    @available(iOS 10.0, *)
     @objc
     public convenience init(positions: [SCNVector3], radii: [CGFloat], colors: [UIColor]) {
 

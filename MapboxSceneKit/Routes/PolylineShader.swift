@@ -11,7 +11,6 @@ import SceneKit
 import Metal
 
 /// Uses a Metal Shader to give that geometry a set radius in screen-space. Not compatible with iOS simulator builds.
-@available(iOS 10.0, *)
 internal class PolylineShader: PolylineRenderer {
 
     private weak var polyline: PolylineNode?

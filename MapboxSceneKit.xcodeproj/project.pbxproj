@@ -17,7 +17,6 @@
 		81293BFF20B4B3D20014A17A /* MapboxMobileEvents.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 81293BFD20B4B3C10014A17A /* MapboxMobileEvents.framework */; };
 		81293C0120B4B4010014A17A /* MapboxMobileEvents.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 81293BFD20B4B3C10014A17A /* MapboxMobileEvents.framework */; };
 		814D9F2720A48538008E6848 /* ImageBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 814D9F2620A48538008E6848 /* ImageBuilder.swift */; };
-		814F3BD520ADF1B40006DDFD /* MapboxImageAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 814F3BD420ADF1B40006DDFD /* MapboxImageAPI.swift */; };
 		817BC09220BDC435005A015D /* SCNExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 817BC09120BDC435005A015D /* SCNExtensions.swift */; };
 		8190075F20C07FAD002F23C3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81293BD320B4A1AE0014A17A /* AppDelegate.swift */; };
 		8190076020C07FD5002F23C3 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81293BCD20B4A1AE0014A17A /* LaunchScreen.storyboard */; };
@@ -26,11 +25,7 @@
 		81A436C120A1F68500F42A53 /* MapboxSceneKit.h in Headers */ = {isa = PBXBuildFile; fileRef = 81A436BF20A1F68500F42A53 /* MapboxSceneKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		81A436C820A1F6BC00F42A53 /* TerrainNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81A436C720A1F6BC00F42A53 /* TerrainNode.swift */; };
 		81A4371720A1FAB700F42A53 /* Math.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81A4371620A1FAB700F42A53 /* Math.swift */; };
-		81A4372320A243B200F42A53 /* MapboxHTTPAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81A4372220A243B200F42A53 /* MapboxHTTPAPI.swift */; };
-		81A4372520A243E100F42A53 /* AsyncOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81A4372420A243E100F42A53 /* AsyncOperation.swift */; };
-		81A4372A20A2444B00F42A53 /* HTTPRequestOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81A4372920A2444B00F42A53 /* HTTPRequestOperation.swift */; };
 		81CCF68720AA99CD00194B22 /* CGExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81CCF68620AA99CD00194B22 /* CGExtensions.swift */; };
-		954A248021484C210050025E /* PolylineCylinder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 954A247F21484C210050025E /* PolylineCylinder.swift */; };
 		954A248221484F330050025E /* PolylineNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 954A248121484F330050025E /* PolylineNode.swift */; };
 		9569513E2148827800D567AE /* DemoARViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 817BC08D20BDC071005A015D /* DemoARViewController.swift */; };
 		9569513F2148828200D567AE /* FocusSquare.swift in Sources */ = {isa = PBXBuildFile; fileRef = 817BC08F20BDC413005A015D /* FocusSquare.swift */; };
@@ -42,6 +37,7 @@
 		9598A005215EB4E80086CF4E /* StaticConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9598A003215EB4460086CF4E /* StaticConstants.swift */; };
 		959F81622149DE9700A290DF /* PolylineRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 959F81612149DE9700A290DF /* PolylineRenderer.swift */; };
 		95CC6AA4214ADB05000CD0E6 /* SCNExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95CC6AA3214ADB05000CD0E6 /* SCNExtensions.swift */; };
+		98B95D9406D6473AB180178C /* Pods_MapboxSceneKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5EEE91F87EB140A3E1CED7F3 /* Pods_MapboxSceneKit.framework */; };
 		F44BB60520C75CBF00CE41C6 /* DemoExtrusionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F44BB60420C75CBF00CE41C6 /* DemoExtrusionViewController.m */; };
 /* End PBXBuildFile section */
 
@@ -70,6 +66,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		13EE746F49B77256665D5BA2 /* Pods-MapboxSceneKit.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MapboxSceneKit.release.xcconfig"; path = "Pods/Target Support Files/Pods-MapboxSceneKit/Pods-MapboxSceneKit.release.xcconfig"; sourceTree = "<group>"; };
+		5EEE91F87EB140A3E1CED7F3 /* Pods_MapboxSceneKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MapboxSceneKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		81293BC820B4A1AE0014A17A /* DemoHeightmapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DemoHeightmapViewController.swift; sourceTree = "<group>"; };
 		81293BC920B4A1AE0014A17A /* DemoStyleViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DemoStyleViewController.swift; sourceTree = "<group>"; };
 		81293BCB20B4A1AE0014A17A /* ProgressCompositor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressCompositor.swift; sourceTree = "<group>"; };
@@ -83,7 +81,6 @@
 		81293BD920B4A1C80014A17A /* Examples.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Examples.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		81293BFD20B4B3C10014A17A /* MapboxMobileEvents.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapboxMobileEvents.framework; path = Carthage/Build/iOS/MapboxMobileEvents.framework; sourceTree = "<group>"; };
 		814D9F2620A48538008E6848 /* ImageBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageBuilder.swift; sourceTree = "<group>"; };
-		814F3BD420ADF1B40006DDFD /* MapboxImageAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapboxImageAPI.swift; sourceTree = "<group>"; };
 		817BC08D20BDC071005A015D /* DemoARViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DemoARViewController.swift; sourceTree = "<group>"; };
 		817BC08F20BDC413005A015D /* FocusSquare.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FocusSquare.swift; sourceTree = "<group>"; };
 		817BC09120BDC435005A015D /* SCNExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SCNExtensions.swift; sourceTree = "<group>"; };
@@ -92,11 +89,7 @@
 		81A436C020A1F68500F42A53 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		81A436C720A1F6BC00F42A53 /* TerrainNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TerrainNode.swift; sourceTree = "<group>"; };
 		81A4371620A1FAB700F42A53 /* Math.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Math.swift; sourceTree = "<group>"; };
-		81A4372220A243B200F42A53 /* MapboxHTTPAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapboxHTTPAPI.swift; sourceTree = "<group>"; };
-		81A4372420A243E100F42A53 /* AsyncOperation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AsyncOperation.swift; sourceTree = "<group>"; };
-		81A4372920A2444B00F42A53 /* HTTPRequestOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPRequestOperation.swift; sourceTree = "<group>"; };
 		81CCF68620AA99CD00194B22 /* CGExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CGExtensions.swift; sourceTree = "<group>"; };
-		954A247F21484C210050025E /* PolylineCylinder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PolylineCylinder.swift; sourceTree = "<group>"; };
 		954A248121484F330050025E /* PolylineNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PolylineNode.swift; sourceTree = "<group>"; };
 		957C85E22146FF92004C548E /* PolylineShader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PolylineShader.swift; sourceTree = "<group>"; };
 		957C85E42146FF92004C548E /* unlit-line.metal */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.metal; path = "unlit-line.metal"; sourceTree = "<group>"; };
@@ -106,6 +99,7 @@
 		9598A003215EB4460086CF4E /* StaticConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StaticConstants.swift; sourceTree = "<group>"; };
 		959F81612149DE9700A290DF /* PolylineRenderer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PolylineRenderer.swift; sourceTree = "<group>"; };
 		95CC6AA3214ADB05000CD0E6 /* SCNExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SCNExtensions.swift; sourceTree = "<group>"; };
+		9CAF3DC4E32500615449B874 /* Pods-MapboxSceneKit.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MapboxSceneKit.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MapboxSceneKit/Pods-MapboxSceneKit.debug.xcconfig"; sourceTree = "<group>"; };
 		F44BB60220C75CBF00CE41C6 /* Examples-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Examples-Bridging-Header.h"; sourceTree = "<group>"; };
 		F44BB60320C75CBF00CE41C6 /* DemoExtrusionViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DemoExtrusionViewController.h; sourceTree = "<group>"; };
 		F44BB60420C75CBF00CE41C6 /* DemoExtrusionViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DemoExtrusionViewController.m; sourceTree = "<group>"; };
@@ -126,6 +120,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				81293C0120B4B4010014A17A /* MapboxMobileEvents.framework in Frameworks */,
+				98B95D9406D6473AB180178C /* Pods_MapboxSceneKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -159,6 +154,7 @@
 			isa = PBXGroup;
 			children = (
 				81293BFD20B4B3C10014A17A /* MapboxMobileEvents.framework */,
+				5EEE91F87EB140A3E1CED7F3 /* Pods_MapboxSceneKit.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -180,6 +176,7 @@
 				81A436BE20A1F68500F42A53 /* MapboxSceneKit */,
 				81A436BD20A1F68500F42A53 /* Products */,
 				81293BEB20B4A1FB0014A17A /* Frameworks */,
+				84FA7316D5476119F84D9345 /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -197,7 +194,6 @@
 			children = (
 				81A436BF20A1F68500F42A53 /* MapboxSceneKit.h */,
 				81A436C720A1F6BC00F42A53 /* TerrainNode.swift */,
-				814F3BD420ADF1B40006DDFD /* MapboxImageAPI.swift */,
 				9598A003215EB4460086CF4E /* StaticConstants.swift */,
 				81A4371620A1FAB700F42A53 /* Math.swift */,
 				957C85E12146FF92004C548E /* Routes */,
@@ -212,11 +208,17 @@
 			isa = PBXGroup;
 			children = (
 				814D9F2620A48538008E6848 /* ImageBuilder.swift */,
-				81A4372220A243B200F42A53 /* MapboxHTTPAPI.swift */,
-				81A4372920A2444B00F42A53 /* HTTPRequestOperation.swift */,
-				81A4372420A243E100F42A53 /* AsyncOperation.swift */,
 			);
 			path = "Tile Fetching";
+			sourceTree = "<group>";
+		};
+		84FA7316D5476119F84D9345 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				9CAF3DC4E32500615449B874 /* Pods-MapboxSceneKit.debug.xcconfig */,
+				13EE746F49B77256665D5BA2 /* Pods-MapboxSceneKit.release.xcconfig */,
+			);
+			name = Pods;
 			sourceTree = "<group>";
 		};
 		957C85E12146FF92004C548E /* Routes */ = {
@@ -227,7 +229,6 @@
 				954A248121484F330050025E /* PolylineNode.swift */,
 				959F81612149DE9700A290DF /* PolylineRenderer.swift */,
 				957C85E22146FF92004C548E /* PolylineShader.swift */,
-				954A247F21484C210050025E /* PolylineCylinder.swift */,
 				957C85E62146FF92004C548E /* BezierSpline3D.swift */,
 			);
 			path = Routes;
@@ -280,6 +281,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 81A436C420A1F68500F42A53 /* Build configuration list for PBXNativeTarget "MapboxSceneKit" */;
 			buildPhases = (
+				3E2E09A7DC1630D812D364AF /* [CP] Check Pods Manifest.lock */,
 				81A436B720A1F68500F42A53 /* Sources */,
 				81A436B820A1F68500F42A53 /* Frameworks */,
 				81A436B920A1F68500F42A53 /* Headers */,
@@ -301,7 +303,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0930;
-				LastUpgradeCheck = 0940;
+				LastUpgradeCheck = 1010;
 				ORGANIZATIONNAME = MapBox;
 				TargetAttributes = {
 					81293BD820B4A1C80014A17A = {
@@ -354,6 +356,28 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		3E2E09A7DC1630D812D364AF /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-MapboxSceneKit-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
 		81293BFA20B4A8860014A17A /* Apply Mapbox Access Token */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -417,16 +441,11 @@
 				81A436C820A1F6BC00F42A53 /* TerrainNode.swift in Sources */,
 				81A4371720A1FAB700F42A53 /* Math.swift in Sources */,
 				957C85EC2146FF92004C548E /* TerrainNodeExtension+Routes.swift in Sources */,
-				954A248021484C210050025E /* PolylineCylinder.swift in Sources */,
 				814D9F2720A48538008E6848 /* ImageBuilder.swift in Sources */,
-				81A4372A20A2444B00F42A53 /* HTTPRequestOperation.swift in Sources */,
-				81A4372520A243E100F42A53 /* AsyncOperation.swift in Sources */,
-				81A4372320A243B200F42A53 /* MapboxHTTPAPI.swift in Sources */,
 				957C85E82146FF92004C548E /* PolylineShader.swift in Sources */,
 				954A248221484F330050025E /* PolylineNode.swift in Sources */,
 				9598A005215EB4E80086CF4E /* StaticConstants.swift in Sources */,
 				957C85EA2146FF92004C548E /* SCNProgramExtensions.swift in Sources */,
-				814F3BD520ADF1B40006DDFD /* MapboxImageAPI.swift in Sources */,
 				957C85EB2146FF92004C548E /* BezierSpline3D.swift in Sources */,
 				81CCF68720AA99CD00194B22 /* CGExtensions.swift in Sources */,
 			);
@@ -641,9 +660,10 @@
 		};
 		81A436C520A1F68500F42A53 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 9CAF3DC4E32500615449B874 /* Pods-MapboxSceneKit.debug.xcconfig */;
 			buildSettings = {
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "";
 				CODE_SIGN_STYLE = Manual;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = "";
@@ -656,7 +676,7 @@
 				);
 				INFOPLIST_FILE = MapboxSceneKit/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -674,6 +694,7 @@
 		};
 		81A436C620A1F68500F42A53 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 13EE746F49B77256665D5BA2 /* Pods-MapboxSceneKit.release.xcconfig */;
 			buildSettings = {
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "";
@@ -689,7 +710,7 @@
 				);
 				INFOPLIST_FILE = MapboxSceneKit/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
