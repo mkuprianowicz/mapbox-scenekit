@@ -89,7 +89,7 @@ public protocol FloatConvertibleMathable: FloatConvertible {
 }
 extension Float: FloatConvertibleMathable { }
 extension Double: FloatConvertibleMathable { }
-extension CGFloat: FloatConvertibleMathable { init(_ value: CGFloat) { self.init(Float(value)) } }
+extension CGFloat: FloatConvertibleMathable { public init(_ value: CGFloat) { self.init(Float(value)) } }
 
 // MARK: VFloat extension
 // Let VFloats be created with a FloatConvertible
